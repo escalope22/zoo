@@ -7,7 +7,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class EspaceCreationType extends AbstractType
 {
@@ -16,8 +15,6 @@ class EspaceCreationType extends AbstractType
         $builder
             ->add('nom')
             ->add('superficie')
-            ->add('dateOuverture')
-            ->add('dateFermeture')
             ->add("ok", SubmitType::class, ["label"=>"OK"])
         ;
     }
