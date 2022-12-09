@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EspacesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,6 +38,16 @@ class Espaces
      * @ORM\Column(type="date", nullable=true)
      */
     private $dateFermeture;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Enclos::class, mappedBy="espace")
+     */
+    private $enclos;
+
+    public function __construct()
+    {
+        $this->enclos = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -86,6 +98,36 @@ class Espaces
     public function setDateFermeture(?\DateTimeInterface $dateFermeture): self
     {
         $this->dateFermeture = $dateFermeture;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Enclos>
+     */
+    public function getEnclos(): Collection
+    {
+        return $this->enclos;
+    }
+
+    public function addEnclo(Enclos $enclo): self
+    {
+        if (!$this->enclos->contains($enclo)) {
+            $this->enclos[] = $enclo;
+            $enclo->setEspace($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEnclo(Enclos $enclo): self
+    {
+        if ($this->enclos->removeElement($enclo)) {
+            // set the owning side to null (unless already changed)
+            if ($enclo->getEspace() === $this) {
+                $enclo->setEspace(null);
+            }
+        }
 
         return $this;
     }

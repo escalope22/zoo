@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EnclosController!{% endblock %}
+
+{% block body %}
+    <h1>Bienvenue dans l'espace de contrôle des enclos du zoo</h1>
+    <table class="table table-striped">
+        <tr>
+            <th>Espace</th>
+            <th>Nom</th>
+            <th>Superficie</th>
+            <th>Capacité</th>
+            <th>Quarantaine</th>
+            <th></th>
+            <th></th>
+        </tr>
+        {% for enclo in enclos %}
+            <tr>
+                <td>{{ enclo.espace.nom }}</td>
+                <td>{{ enclo.nom }}</td>
+                <td>{{ enclo.superficie }} m²</td>
+                <td>{{ enclo.capacite }} animaux</td>
+                {% if (enclo.quarantaine) %}
+                    <td>oui </td>
+                    <td><a href="{{ path('app_change_quarantaine', {'id':enclo.id}) }}" class="btn btn-success">sortir de quarantaine</a></td>
+                {% else %}
+                    <td>non</td>
+                    <td><a href="{{ path('app_change_quarantaine', {'id':enclo.id}) }}" class="btn btn-warning">mettre en quarantaine</a></td>
+                {% endif %}
+                <td><a href="{{ path('app_enclos_supr', {'id':enclo.id}) }}" class="btn btn-danger"><b>X</b></a></td>
+            </tr>
+        {% endfor %}
+    </table>
+    <a href="{{ path('app_enclos_ajouter') }}" class="btn btn-primary">Ajouter un enclos</a> {# TODO si il ne contient pas d'animaux #}
+{% endblock %}

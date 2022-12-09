@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace d'ajout des espaces{% endblock %}
+
+{% block body %}
+    <h1>Veuillez confirmé la suppression
+    {% if(enclo.nom is not null) %}
+        du <b>{{ enclo.nom }}</b>
+    {% endif %}
+    </h1>
+    <br>
+    {{ form(formulaire) }}
+    <br>
+    <a href="{{ path('app_enclos') }}" class="btn btn-secondary">retour</a>
+{% endblock %}
