@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace d'ajout des espaces{% endblock %}
+
+{% block body %}
+    <h1>Ajouter une date de <b>fermeture</b> au {{ espace.nom }}</h1>
+    {% if(date_impossible == "1") %}
+        <span style="color: red"><b>Veuillez rentrer une date valide</b><br>
+        La date d'ouverture est le {{ espace.dateOuverture.format('d/m Y') }}, saisir une date après cette date.</span>
+    {% endif %}
+    {{ form(formulaire) }}
+{% endblock %}

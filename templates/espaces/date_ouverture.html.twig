@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace d'ajout des espaces{% endblock %}
+
+{% block body %}
+    <h1>Ajouter une date d'<b>ouverture</b> au {{ espace.nom }}</h1>
+    {{ form(formulaire) }}
+{% endblock %}

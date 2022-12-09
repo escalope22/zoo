@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace de contrôle des espaces{% endblock %}
+
+{% block body %}
+    <h1>Bienvenue dans l'espace de contrôle des espaces du zoo</h1>
+
+    <table class="table table-striped">
+        <tr>
+            <th>Nom</th>
+            <th>Superficie (m²)</th>
+            <th>Date ouverture</th>
+            <th>Date fermeture</th>
+            <th></th>
+        </tr>
+        {% for espace in espaces %}
+            <tr>
+                <td>{{ espace.nom }}</td>
+                <td>{{ espace.superficie }}</td>
+
+                {# Date d'ouverture #}
+                {% if (espace.dateOuverture is null) %}
+                    <td><a class="btn btn-primary" href="{{ path('app_espaces_date_ouverture',{'id': espace.id}) }}">Ajouter</a></td>
+                {% else %}
+                    <td>{{ espace.dateOuverture.format('d-m-Y') }}</td>
+                {% endif %}
+
+                {# Date de fermeture #}
+                {% if (espace.dateFermeture is null) %}
+                    {% if (espace.dateOuverture is null) %}
+                        <td>pas de date</td>
+                    {% else %}
+                        <td><a class="btn btn-primary" href="{{ path('app_espaces_date_fermeture',{"id": espace.id, 'date_impossible': "0"}) }}">Ajouter</a></td>
+                    {% endif %}
+                {% else %}
+                    <td>{{ espace.dateFermeture.format('d-m-Y') }}</td>
+                {% endif %}
+
+
+                <td><a class="btn btn-danger" href="{{ path('app_espaces_supr',{"id": espace.id}) }}">X</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+    <a href="{{ path('app_espaces_ajouter') }}" class="btn btn-primary">Ajouter un espace</a>
+{% endblock %}
