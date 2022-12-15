@@ -4,7 +4,13 @@
 
 {% block body %}
 
-    <h1>Bienvenue dans l'espace de contrôle des animaux du zoo</h1>
+    <h1>Vous affichez les animaux
+            {% if enclo.nom != null %}
+                de <b>{{ enclo.nom }}</b>
+            {% else %}
+                d'un <b>enclos</b>
+            {% endif %}
+        dans l'espace <b>{{ enclo.espace.nom }}</b> </h1>
     <table class="table table-striped">
         <tr>
             <th></th>
@@ -78,5 +84,4 @@
             </tr>
         {% endfor %}
     </table>
-    <a href="{{ path('app_animals_ajouter') }}" class="btn btn-primary">Ajouter un animal</a>
 {% endblock %}
