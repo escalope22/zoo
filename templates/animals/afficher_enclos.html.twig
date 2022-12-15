@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page d'affichage des animaux{% endblock %}
+
+{% block body %}
+
+    <h1>Bienvenue dans l'espace de contrôle des animaux du zoo</h1>
+    <table class="table table-striped">
+        <tr>
+            <th></th>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Date de naissance</th>
+            <th>Date de l'arrivée</th>
+            <th>Date du départ</th>
+            <th>Propriété du zoo</th>
+            <th>Genre</th>
+            <th>Espèce</th>
+            <th>Sexe</th>
+            <th>Stérélisé</th>
+            <th>Quarantaine</th>
+            <th></th>
+            <th></th>
+        </tr>
+        {% for animal in animals %}
+            <tr>
+                <td><a class="btn btn-primary" href="{{ path('app_animals_modifier',{id: animal.id}) }}">Modifier</a></td>
+                <td>{{ animal.numeroId }}</td>
+                <td>{{ animal.nom }}</td>
+
+                {% if (animal.dateNaissance is not null) %}
+                    <td>{{ animal.dateNaissance.format("d/m/Y") }}</td>
+                {% else %}
+                    <td>pas de date</td>
+                {% endif %}
+
+                <td>{{ animal.dateArrivee.format("d/m/Y") }}</td>
+
+                {% if (animal.dateDepart is not null) %}
+                    <td>{{ animal.dateDepart.format("d/m/Y") }}</td>
+                {% else %}
+                    <td>pas de date</td>
+                {% endif %}
+
+                {% if animal.zooProprietaire %}
+                    <td>oui</td>
+                {% else %}
+                    <td>non</td>
+                {% endif %}
+
+                <td>{{ animal.genre }}</td>
+                <td>{{ animal.espece }}</td>
+
+                {% if animal.male is not null %}
+                    {% if animal.male %}
+                        <td>Mâle</td>
+                    {% else %}
+                        <td>Femelle</td>
+                    {% endif %}
+                {% else %}
+                    <td>Non-déterminé</td>
+                {% endif %}
+
+                {% if animal.sterilise %}
+                    <td>oui</td>
+                {% else %}
+                    <td>non</td>
+                {% endif %}
+
+                {% if animal.quarantaine %}
+                    <td>oui</td>
+                    <td><a class="btn btn-success" href="{{ path('app_animals_change_quarantaine',{id: animal.id}) }}">Sortir de quarantaine</a></td>
+                {% else %}
+                    <td>non</td>
+                    <td><a class="btn btn-warning" href="{{ path('app_animals_change_quarantaine',{id: animal.id}) }}">Mettre en quarantaine</a></td>
+                {% endif %}
+                <td><a class="btn btn-danger" href="{{ path('app_animals_supprimer',{id: animal.id}) }}">X</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+    <a href="{{ path('app_animals_ajouter') }}" class="btn btn-primary">Ajouter un animal</a>
+{% endblock %}

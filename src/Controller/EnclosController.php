@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Enclos;
+use App\Entity\Animals;
 use App\Form\EnclosCreationType;
 use App\Form\EncloSupprimerType;
 use Doctrine\Persistence\ManagerRegistry;
@@ -44,6 +45,7 @@ class EnclosController extends AbstractController
             "formulaire" => $form->createView()
         ]);
     }
+
     /**
      * @Route("/enclos/supprimer{id}", name="app_enclos_supr")
      */
@@ -83,9 +85,13 @@ class EnclosController extends AbstractController
 
         if ($enclo->isQuarantaine()){
             $enclo->setQuarantaine(false);
+            foreach ($enclo->getAnimals()->toArray() as $animal)
+                $animal->setQuarantaine(false);
         }else{
             $enclo->setQuarantaine(true);
-            //TODO mettre tous les animaux en quarantaine
+            foreach ($enclo->getAnimals()->toArray() as $animal)
+                $animal->setQuarantaine(true);
+
         }
 
         $em = $doctrine->getManager();

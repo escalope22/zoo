@@ -104,7 +104,7 @@ class EspacesController extends AbstractController
     }
 
     /**
-     * @Route("/espaces/date_fermeture/{id}&{date_impossible}", name="app_espaces_date_fermeture")
+     * @Route("/espaces/date_fermeture/{id}{date_impossible}", name="app_espaces_date_fermeture")
      */
     public function date_fermeture($id, $date_impossible, ManagerRegistry $doctrine, Request $request): Response
     {

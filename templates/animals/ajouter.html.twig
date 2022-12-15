@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un animal{% endblock %}
+
+{% block body %}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-danger w-75" style="margin: auto" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    <h1>Ajouter un animal</h1>
+    <div class="card" style="width: 50%; margin: auto">
+        <h5 class="card-header">Formulaire d'ajout :</h5>
+        <div class="card-body">
+            {{ form(formulaire) }}
+        </div>
+    </div>
+    <a href="{{ path('app_animals') }}" class="btn btn-secondary">Retour</a>
+{% endblock %}

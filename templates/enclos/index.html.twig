@@ -13,20 +13,22 @@
             <th>Quarantaine</th>
             <th></th>
             <th></th>
+            <th></th>
         </tr>
         {% for enclo in enclos %}
             <tr>
                 <td>{{ enclo.espace.nom }}</td>
                 <td>{{ enclo.nom }}</td>
                 <td>{{ enclo.superficie }} m²</td>
-                <td>{{ enclo.capacite }} animaux</td>
+                <td>{{ enclo.animals.count }}/{{ enclo.capacite }} animaux</td>
                 {% if (enclo.quarantaine) %}
                     <td>oui </td>
-                    <td><a href="{{ path('app_change_quarantaine', {'id':enclo.id}) }}" class="btn btn-success">sortir de quarantaine</a></td>
+                    <td></td>
                 {% else %}
                     <td>non</td>
                     <td><a href="{{ path('app_change_quarantaine', {'id':enclo.id}) }}" class="btn btn-warning">mettre en quarantaine</a></td>
                 {% endif %}
+                <td><a href="{{ path('app_animals_enclos', {'id':enclo.id})  }}" class="btn btn-secondary">Afficher</a></td>
                 <td><a href="{{ path('app_enclos_supr', {'id':enclo.id}) }}" class="btn btn-danger"><b>X</b></a></td>
             </tr>
         {% endfor %}

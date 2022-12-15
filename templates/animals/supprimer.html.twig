@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace d'ajout des animaux{% endblock %}
+
+{% block body %}
+    <h1>Veuillez confirmé la suppression
+        {% if(animal.nom is not null) %}
+            du <b>{{ animal.nom }}</b>
+        {% endif %}
+    </h1>
+    <br>
+    {{ form(formulaire) }}
+    <br>
+    <a href="{{ path('app_animals') }}" class="btn btn-secondary">retour</a>
+{% endblock %}
